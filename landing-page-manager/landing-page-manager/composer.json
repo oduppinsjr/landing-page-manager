@@ -1,0 +1,12 @@
+{
+  "require": {
+      "htmlburger/carbon-fields": "^3.6",
+    "league/color-extractor": "^0.3.2"
+    },
+  "autoload": {
+  "psr-4": {
+    "LPManager\\": "includes/"
+  }
+ }
+
+}

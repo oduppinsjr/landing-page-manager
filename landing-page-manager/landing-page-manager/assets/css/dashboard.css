@@ -1,0 +1,16 @@
+/* Wrap the radio_image and file fields inline */
+.carbon-fields-container .carbon-field-radio_image,
+.carbon-fields-container .carbon-field-file {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 20px;
+}
+
+.carbon-fields-container .carbon-field-radio_image {
+    width: 70%;
+}
+
+.carbon-fields-container .carbon-field-file {
+    width: 28%;
+    max-width: 280px;
+}

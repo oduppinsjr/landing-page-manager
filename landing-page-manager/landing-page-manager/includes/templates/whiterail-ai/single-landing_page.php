@@ -1,0 +1,239 @@
+<?php
+/*
+Template Name: Whiterail AI
+Description: A simple landing page template for Whiterail AI.
+*/
+use \LPManager\assets\Assets_Manager;
+use LPManager\core\Google_Maps_Helper;
+?>
+
+<?php include \LPManager\templates\Template_Manager::get_template_path('header.php'); ?>
+
+<?php
+$client = carbon_get_the_post_meta('client');
+$client_tel = carbon_get_the_post_meta('client_tel');
+
+$client_place_id = $client_term_id ? carbon_get_term_meta($client_term_id, 'client_place_id') : '';
+$client_google_search_url = $client_term_id ? carbon_get_term_meta($client_term_id, 'client_google_search_url') : '';
+if ($client_place_id) {
+    $gmb_url = Google_Maps_Helper::get_gmb_url($client_place_id);
+    $gmb_reviews_url = Google_Maps_Helper::get_gmb_reviews_url($client_place_id);
+} else {
+    $gmb_url = $client_google_search_url;
+    $gmb_reviews_url = $client_google_search_url;
+}
+
+$client_primary_color = $client_term_id ? carbon_get_term_meta($client_term_id, 'client_primary_color') : '#007BFF'; // fallback color: web-safe blue
+$client_secondary_color = $client_term_id ? carbon_get_term_meta($client_term_id, 'client_secondary_color') : '#FF4136'; // fallback color: web-safe red
+$contrast_text_color = Assets_Manager::get_contrast_text_color($client_primary_color);
+$contrast_text_color_alt = Assets_Manager::get_contrast_text_color($client_secondary_color);
+
+$hero_section_h1 = carbon_get_the_post_meta('hero_section_h1');
+$hero_section_h2 = carbon_get_the_post_meta('hero_section_h2');
+$hero_section_bg_id = carbon_get_the_post_meta('hero_section_bg');
+if ($hero_section_bg_id) {
+    $hero_section_bg_url = wp_get_attachment_image_url($hero_section_bg_id, 'full'); // or 'large', 'medium'
+} else {
+    $hero_section_bg_url = ''; // or your fallback image URL
+}
+
+$trust_bar_text_1 = carbon_get_the_post_meta('trust_bar_text_1');
+$trust_bar_text_2 = carbon_get_the_post_meta('trust_bar_text_2');
+$trust_bar_text_3 = carbon_get_the_post_meta('trust_bar_text_3');
+$trust_bar_text_4 = carbon_get_the_post_meta('trust_bar_text_4');
+
+$section_2_h2 = carbon_get_the_post_meta('section_2_h2');
+$section_2_text = carbon_get_the_post_meta('section_2_text');
+$section_2_img_id = carbon_get_the_post_meta('section_2_img');
+if ($section_2_img_id) {
+    $section_2_img_url = wp_get_attachment_image_url($section_2_img_id, 'full'); // or 'large', 'medium'
+} else {
+    $section_2_img_url = ''; // or your fallback image URL
+}
+
+$reviews_h2 = carbon_get_the_post_meta('reviews_h2');
+$reviews_html = carbon_get_the_post_meta('reviews_html');
+
+$section_4_h2 = carbon_get_the_post_meta('section_4_h2');
+$section_4_text_1 = carbon_get_the_post_meta('section_4_text_1');
+$section_4_text_2 = carbon_get_the_post_meta('section_4_text_2');
+
+$section_5_h2 = carbon_get_the_post_meta('section_5_h2');
+$section_5_text = carbon_get_the_post_meta('section_5_text');
+
+$section_6_h2 = carbon_get_the_post_meta('section_6_h2');
+$section_6_text = carbon_get_the_post_meta('section_6_text');
+
+$faq_h2 = carbon_get_the_post_meta('faq_h2');
+$faq_text = carbon_get_the_post_meta('faq_text');
+
+$section_8_h2 = carbon_get_the_post_meta('section_8_h2');
+$section_8_text = carbon_get_the_post_meta('section_8_text');
+$section_8_img_id = carbon_get_the_post_meta('section_8_img');
+if ($section_8_img_id) {
+    $section_8_img_url = wp_get_attachment_image_url($section_8_img_id, 'full'); // or 'large', 'medium'
+} else {
+    $section_8_img_url = ''; // or your fallback image URL
+}
+?>
+
+<!-- Section 1: Hero -->
+<section class="hero-section" style="background-image: url('<?php echo $hero_section_bg_url; ?>')">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <?php if (!empty($hero_section_h1)) : ?>
+            <h1><?php echo esc_html($hero_section_h1); ?></h1>
+        <?php endif; ?>
+
+        <?php if (!empty($hero_section_h2)) : ?>
+            <h2><?php echo esc_html($hero_section_h2); ?></h2>
+        <?php endif; ?>
+
+        <?php if (!empty($client_tel)) : ?>
+            <a class="call-button" style="background-color:<?php echo $client_primary_color; ?>;" href="tel:<?php echo preg_replace('/[^0-9+]/', '', $client_phone); ?>">
+                <i class="fas fa-phone-alt"></i> Call <?php echo esc_html($client_tel); ?>
+            </a>
+        <?php endif; ?>
+    </div>
+</section>
+<div class="trust-bar">
+    <h4><a href="<?php echo $gmb_reviews_url ?>" target="_blank" rel="nofollow"><?php echo $trust_bar_text_1 ?></a></h4>
+    <h4><?php echo $trust_bar_text_2 ?></h4>
+    <h4><?php echo $trust_bar_text_3 ?></h4>
+    <h4><?php echo $trust_bar_text_4 ?></h4>
+</div>
+<!-- Section 2 -->
+<section class="content-image-section">
+  <div class="content-image-wrapper">
+    <div class="text-column">
+      <h2><?php echo $section_2_h2; ?></h2>
+      <p><?php echo $section_2_text; ?></p>
+    </div>
+    <div class="image-column">
+      <img src="<?php echo $section_2_img_url; ?>" alt="<?php echo $client . $keyword; ?>">
+    </div>
+  </div>
+</section>
+<!-- Section 3: Reviews -->
+<section class="reviews-section" style="background-color: #F3F3F3;">
+  <div class="reviews-wrapper">
+    <h2><?php echo $reviews_h2; ?></h2>
+    <div class="reviews-html">
+      <?php echo $reviews_html; ?>
+    </div>
+  </div>
+</section>
+<!-- Section 4 -->
+<section class="icon-boxes-section">
+  <div class="container">
+    <h2><?php echo $section_4_h2; ?></h2>
+    <p class="section-intro"><?php echo $section_4_text_1; ?></p>
+
+    <?php 
+    $icon_boxes = carbon_get_the_post_meta('icon_boxes');
+    if ( !empty($icon_boxes) ) : ?>
+      <div class="icon-boxes-wrapper">
+        <?php foreach ( $icon_boxes as $box ) : ?>
+          <div class="icon-box" style="background-color:<?php echo $client_primary_color; ?>;">
+            <div class="icon">
+              <i style="color:<?php echo $contrast_text_color; ?>;" class="<?php echo esc_attr( $box['icon_class'] ?? 'fas fa-star' ); ?>"></i>
+            </div>
+            <h3 style="color:<?php echo $contrast_text_color; ?>;"><?php echo esc_html( $box['title'] ?? '' ); ?></h3>
+            <?php if ( !empty($box['text']) ) : ?>
+            <p style="color:<?php echo $contrast_text_color; ?>;"><?php echo esc_html( $box['text'] ?? '' ); ?></p>
+            <?php endif; ?>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+
+    <p class="section-outro"><?php echo $section_4_text_2; ?></p>
+  </div>
+</section>
+<!-- Section 5 -->
+<section class="content-section bg-light">
+  <div class="container">
+    <h2><?php echo $section_5_h2; ?></h2>
+    <div class="section-text">
+      <?php echo $section_5_text; ?>
+    </div>
+  </div>
+</section>
+<!-- Section 6 -->
+<section class="content-section">
+  <div class="container">
+    <h2><?php echo $section_6_h2; ?></h2>
+    <div class="section-text">
+      <p><?php echo $section_6_text; ?></p>
+    </div>
+  </div>
+</section>
+<!-- CTA -->
+<section class="cta-bar" style="background-color: <?php echo $client_primary_color; ?>;">
+  <div class="cta-container">
+    <div class="cta-text">
+      <h2>Need a tow truck near me now?</h2>
+    </div>
+    <div class="cta-button">
+      <a class="cta-call-button" style="background-color:<?php echo $client_secondary_color; ?>;color:<?php echo $contrast_text_color_alt; ?>;" href="tel:<?php echo preg_replace('/[^0-9+]/', '', $client_phone); ?>">
+        <i aria-hidden="true" class="fas fa-phone-alt"></i>
+        <?php echo esc_html($client_tel); ?>
+      </a>
+    </div>
+  </div>
+</section>
+<!-- Section 7 FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <h2><?php echo $faq_h2; ?></h2>
+
+    <?php 
+      $faqs = carbon_get_the_post_meta('faq_items');
+      if ( !empty($faqs) ) : 
+    ?>
+      <div class="e-n-accordion" aria-label="Accordion. Open links with Enter or Space, close with Escape, and navigate with Arrow Keys">
+        <?php foreach ( $faqs as $index => $faq ) : 
+          $question = $faq['question'] ?? '';
+          $answer   = $faq['answer'] ?? '';
+          if ( empty($question) || empty($answer) ) continue; 
+        ?>
+
+          <details id="faq-<?php echo esc_attr($index); ?>" class="e-n-accordion-item" <?php echo $index === 0 ? 'open' : ''; ?>>
+            <summary class="e-n-accordion-item-title" style="background-color:<?php echo $client_primary_color; ?>;" tabindex="0" aria-expanded="<?php echo $index === 0 ? 'true' : 'false'; ?>" aria-controls="faq-<?php echo esc_attr($index); ?>">
+              <span class="e-n-accordion-item-title-text" style="color:<?php echo $contrast_text_color; ?>;"><?php echo esc_html($question); ?></span>
+              <span class="e-n-accordion-item-title-icon">
+                <span class="e-opened"><i class="fas fa-minus"></i></span>
+                <span class="e-closed"><i class="fas fa-plus"></i></span>
+              </span>
+            </summary>
+
+            <div role="region" aria-labelledby="faq-<?php echo esc_attr($index); ?>">
+              <p><?php echo nl2br(esc_html($answer)); ?></p>
+            </div>
+          </details>
+
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+
+  </div>
+</section>
+<!-- Section 8 -->
+<section class="content-image-section">
+  <div class="content-image-wrapper">
+    <div class="text-column">
+      <h2><?php echo $section_8_h2; ?></h2>
+      <p><?php echo $section_8_text; ?></p>
+      <?php if (!empty($client_tel)) : ?>
+            <a class="call-button" style="background-color:<?php echo $client_primary_color; ?>;" href="tel:<?php echo preg_replace('/[^0-9+]/', '', $client_phone); ?>">
+                <i class="fas fa-phone-alt"></i> Call <?php echo esc_html($client_tel); ?>
+            </a>
+      <?php endif; ?>
+    </div>
+    <div class="image-column">
+      <img src="<?php echo $section_8_img_url; ?>" alt="<?php echo $client . $keyword; ?>">
+    </div>
+  </div>
+</section>
+
+<?php include \LPManager\templates\Template_Manager::get_template_path('footer.php'); ?>
