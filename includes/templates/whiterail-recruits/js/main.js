@@ -440,6 +440,27 @@ jQuery(function($) {
         google.maps.event.addDomListener(window, "load", initialize);
     }
 
+    function createMapMarker(options) {
+        var canUseAdvanced = google.maps.marker && google.maps.marker.AdvancedMarkerElement;
+        if (canUseAdvanced) {
+            var advancedOptions = {
+                map: options.map,
+                position: options.position,
+                title: options.title || ''
+            };
+            if (options.icon) {
+                var iconEl = document.createElement('img');
+                iconEl.src = options.icon;
+                iconEl.alt = options.title || '';
+                iconEl.style.width = '40px';
+                iconEl.style.height = '40px';
+                advancedOptions.content = iconEl;
+            }
+            return new google.maps.marker.AdvancedMarkerElement(advancedOptions);
+        }
+        return new google.maps.Marker(options);
+    }
+
     function geocodeAddress(locations, i) {
         var title = locations;
         var address = locations;
@@ -449,14 +470,14 @@ jQuery(function($) {
 
             function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
-                    var marker = new google.maps.Marker({
+                    var marker = createMapMarker({
                         icon: map_icon,
                         map: map,
                         position: results[0].geometry.location,
                         title: title,
                         animation: google.maps.Animation.DROP,
                         address: address,
-                    })
+                    });
                     //infoWindow(marker, map, title, address);
                     bounds.extend(results[0].geometry.location);
                     //map.fitBounds(bounds);
@@ -478,15 +499,16 @@ jQuery(function($) {
     }
 
     function createMarker(results) {
-        var marker = new google.maps.Marker({
+        var position = results[0].geometry.location;
+        var marker = createMapMarker({
             icon: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
             map: map,
-            position: results[0].geometry.location,
+            position: position,
             title: title,
             animation: google.maps.Animation.DROP,
             address: address,
-        })
-        bounds.extend(marker.getPosition());
+        });
+        bounds.extend(position);
         map.fitBounds(bounds);
         infoWindow(marker, map, title, address);
         return marker;

@@ -33,7 +33,7 @@ function enqueue_whiterail_scripts() {
 	wp_localize_script(
 		'whiterail-recruits-main',
 		'ajaxInfo',
-		[ 'ajaxurl' => admin_url( 'admin-ajax.php' ) ]
+		[ 'ajaxurl' => admin_url( 'admin-ajax.php', 'relative' ) ]
 	);
 
 	wp_enqueue_script( 'whiterail-recruits-main' );

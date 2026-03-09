@@ -76,11 +76,23 @@
                         };
                         var map = new google.maps.Map(document.getElementById("footer-map"), mapOptions);
 
-                        var marker = new google.maps.Marker({
-                            position: mapOptions.center,
-                            map: map,
-                            title: "<?php echo esc_js( $client_name ); ?>"
-                        });
+                        var marker;
+                        if (
+                            google.maps.marker &&
+                            google.maps.marker.AdvancedMarkerElement
+                        ) {
+                            marker = new google.maps.marker.AdvancedMarkerElement({
+                                position: mapOptions.center,
+                                map: map,
+                                title: "<?php echo esc_js( $client_name ); ?>"
+                            });
+                        } else {
+                            marker = new google.maps.Marker({
+                                position: mapOptions.center,
+                                map: map,
+                                title: "<?php echo esc_js( $client_name ); ?>"
+                            });
+                        }
 
                         var infoWindowContent = `
                             <div style="max-width:200px;">
@@ -103,7 +115,7 @@
                         infoWindow.open(map, marker);
                     }
                 </script>
-                <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo esc_attr($api_key); ?>&callback=initFooterMap" async defer></script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo esc_attr($api_key); ?>&libraries=marker&loading=async&callback=initFooterMap" async defer></script>
             <?php
             else :
             ?>
