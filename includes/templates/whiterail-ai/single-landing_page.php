@@ -88,7 +88,7 @@ if ($section_8_img_id) {
 ?>
 
 <!-- Section 1: Hero -->
-<section class="hero-section"<?php if ( ! empty( $hero_section_bg_url ) ) : ?> style="background-image: url('<?php echo esc_url( $hero_section_bg_url ); ?>')"<?php endif; ?>>
+<section id="hero" class="hero-section"<?php if ( ! empty( $hero_section_bg_url ) ) : ?> style="background-image: url('<?php echo esc_url( $hero_section_bg_url ); ?>')"<?php endif; ?>>
     <div class="hero-overlay"></div>
     <div class="hero-content">
         <?php if (!empty($hero_section_h1)) : ?>
@@ -106,14 +106,18 @@ if ($section_8_img_id) {
         <?php endif; ?>
     </div>
 </section>
-<div class="trust-bar">
-    <h4><?php if ( ! empty( $gmb_reviews_url ) ) : ?><a href="<?php echo esc_url( $gmb_reviews_url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $trust_bar_text_1 ); ?></a><?php else : ?><?php echo esc_html( $trust_bar_text_1 ); ?><?php endif; ?></h4>
-    <h4><?php echo esc_html( $trust_bar_text_2 ); ?></h4>
-    <h4><?php echo esc_html( $trust_bar_text_3 ); ?></h4>
-    <h4><?php echo esc_html( $trust_bar_text_4 ); ?></h4>
-</div>
+<section class="trust-bar" aria-label="Trust highlights">
+    <ul class="trust-bar__list">
+      <?php if ( ! empty( $trust_bar_text_1 ) ) : ?>
+      <li class="trust-bar__item"><?php if ( ! empty( $gmb_reviews_url ) ) : ?><a href="<?php echo esc_url( $gmb_reviews_url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $trust_bar_text_1 ); ?></a><?php else : ?><?php echo esc_html( $trust_bar_text_1 ); ?><?php endif; ?></li>
+      <?php endif; ?>
+      <?php if ( ! empty( $trust_bar_text_2 ) ) : ?><li class="trust-bar__item"><?php echo esc_html( $trust_bar_text_2 ); ?></li><?php endif; ?>
+      <?php if ( ! empty( $trust_bar_text_3 ) ) : ?><li class="trust-bar__item"><?php echo esc_html( $trust_bar_text_3 ); ?></li><?php endif; ?>
+      <?php if ( ! empty( $trust_bar_text_4 ) ) : ?><li class="trust-bar__item"><?php echo esc_html( $trust_bar_text_4 ); ?></li><?php endif; ?>
+    </ul>
+</section>
 <!-- Section 2 -->
-<section class="content-image-section">
+<section id="opening" class="content-image-section">
   <div class="content-image-wrapper">
     <div class="text-column">
       <h2><?php echo esc_html( $section_2_h2 ); ?></h2>
@@ -125,7 +129,7 @@ if ($section_8_img_id) {
   </div>
 </section>
 <!-- Section 3: Reviews -->
-<section class="reviews-section" style="background-color: #F3F3F3;">
+<section id="reviews" class="reviews-section" style="background-color: #F3F3F3;">
   <div class="reviews-wrapper">
     <h2><?php echo esc_html( $reviews_h2 ); ?></h2>
     <div class="reviews-html">
@@ -134,7 +138,7 @@ if ($section_8_img_id) {
   </div>
 </section>
 <!-- Section 4 -->
-<section class="icon-boxes-section">
+<section id="services" class="icon-boxes-section">
   <div class="container">
     <h2><?php echo esc_html( $section_4_h2 ); ?></h2>
     <p class="section-intro"><?php echo $section_4_text_1; ?></p>
@@ -161,7 +165,7 @@ if ($section_8_img_id) {
   </div>
 </section>
 <!-- Section 5 -->
-<section class="content-section bg-light">
+<section id="service-area" class="content-section bg-light">
   <div class="container">
     <h2><?php echo esc_html( $section_5_h2 ); ?></h2>
     <div class="section-text">
@@ -170,7 +174,7 @@ if ($section_8_img_id) {
   </div>
 </section>
 <!-- Section 6 -->
-<section class="content-section">
+<section id="roads-highways" class="content-section">
   <div class="container">
     <h2><?php echo esc_html( $section_6_h2 ); ?></h2>
     <div class="section-text">
@@ -193,7 +197,7 @@ if ($section_8_img_id) {
   </div>
 </section>
 <!-- Section 7 FAQ -->
-<section class="faq-section">
+<section id="faq" class="faq-section">
   <div class="container">
     <h2><?php echo esc_html( $faq_h2 ); ?></h2>
 
@@ -201,15 +205,17 @@ if ($section_8_img_id) {
       $faqs = carbon_get_the_post_meta('faq_items');
       if ( !empty($faqs) ) : 
     ?>
-      <div class="e-n-accordion" aria-label="Accordion. Open links with Enter or Space, close with Escape, and navigate with Arrow Keys">
+      <div class="e-n-accordion" aria-label="Frequently asked questions">
         <?php foreach ( $faqs as $index => $faq ) : 
           $question = $faq['question'] ?? '';
           $answer   = $faq['answer'] ?? '';
           if ( empty($question) || empty($answer) ) continue; 
+          $faq_id = 'faq-' . $index;
+          $faq_panel_id = 'faq-panel-' . $index;
         ?>
 
-          <details id="faq-<?php echo esc_attr( $index ); ?>" class="e-n-accordion-item" <?php echo $index === 0 ? 'open' : ''; ?>>
-            <summary class="e-n-accordion-item-title" style="background-color:<?php echo esc_attr( $client_primary_color ); ?>;" tabindex="0" aria-expanded="<?php echo $index === 0 ? 'true' : 'false'; ?>" aria-controls="faq-<?php echo esc_attr( $index ); ?>">
+          <details id="<?php echo esc_attr( $faq_id ); ?>" class="e-n-accordion-item" <?php echo $index === 0 ? 'open' : ''; ?>>
+            <summary class="e-n-accordion-item-title" style="background-color:<?php echo esc_attr( $client_primary_color ); ?>;" tabindex="0" aria-controls="<?php echo esc_attr( $faq_panel_id ); ?>">
               <span class="e-n-accordion-item-title-text" style="color:<?php echo esc_attr( $contrast_text_color ); ?>;"><?php echo esc_html( $question ); ?></span>
               <span class="e-n-accordion-item-title-icon">
                 <span class="e-opened"><i class="fas fa-minus"></i></span>
@@ -217,7 +223,7 @@ if ($section_8_img_id) {
               </span>
             </summary>
 
-            <div role="region" aria-labelledby="faq-<?php echo esc_attr($index); ?>">
+            <div id="<?php echo esc_attr( $faq_panel_id ); ?>" class="faq-answer-panel" role="region" aria-labelledby="<?php echo esc_attr( $faq_id ); ?>">
               <p><?php echo nl2br(esc_html($answer)); ?></p>
             </div>
           </details>
@@ -229,7 +235,7 @@ if ($section_8_img_id) {
   </div>
 </section>
 <!-- Section 8 -->
-<section class="content-image-section">
+<section id="closing" class="content-image-section">
   <div class="content-image-wrapper">
     <div class="text-column">
       <h2><?php echo esc_html( $section_8_h2 ); ?></h2>

@@ -173,7 +173,7 @@
                                 continue;
                             }
                         ?>
-                        <li class="social-links__item">
+                        <li class="social-icons__item">
                             <a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer">
                                 <i class="<?php echo esc_attr( $icon_class ); ?>" style="color: <?php echo esc_attr( $copyright_text_color ); ?>;" aria-hidden="true"></i>
                             </a>

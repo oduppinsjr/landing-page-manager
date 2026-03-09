@@ -45,7 +45,7 @@
         padding: 15px 10px;
      }
 
-    .trust-bar h4 {
+    .trust-bar__item {
         flex: 1 1 100%;
         margin: 10px 0;
     }
@@ -58,7 +58,7 @@
         padding: 10px 24px;
     }
 
-    .trust-bar h4 {
+    .trust-bar__item {
         flex: 1 1 100%;
         margin: 5px 0;
     }
@@ -74,7 +74,7 @@
 
 @media (max-width: 480px) {
     .section-text ul {
-        columns: 1important;
+        columns: 1 !important;
     }
 }
 

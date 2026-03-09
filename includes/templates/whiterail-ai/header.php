@@ -66,7 +66,7 @@
 	];
 	?>
 
-<header class="header-bar" style="background-color: <?php echo esc_attr( $client_primary_color ); ?>; color: <?php echo esc_attr( $contrast_text_color ); ?>;">
+<div class="header-bar" style="background-color: <?php echo esc_attr( $client_primary_color ); ?>; color: <?php echo esc_attr( $contrast_text_color ); ?>;">
     <div class="header-bar__section header-bar__section--address">
         <?php if (!empty($client_address)) : ?>
             <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
@@ -115,7 +115,7 @@
         <div class="header-bar__empty-social"></div>
       <?php endif; ?>
     </div>
-</header>
+</div>
 <?php
 // Prepare menus and client domain like before
 if (!$client_domain) $client_domain = home_url('/');
@@ -145,7 +145,7 @@ function lpmanager_is_valid_external_url($url) {
 ?>
 
 <!-- Desktop Header -->
-<header class="site-header site-header--desktop" role="banner" aria-label="Primary Site Header">
+<header class="site-header site-header--desktop" aria-label="Primary Site Header">
   <div class="header-container">
     <!-- Desktop Header Navigation -->
     <nav class="nav nav--left" aria-label="Primary navigation left">
@@ -180,7 +180,7 @@ function lpmanager_is_valid_external_url($url) {
 <!-- Mobile Header -->
 <?php $mobile_menu_enabled = carbon_get_term_meta($client_term_id, 'lpmanager_enable_mobile_menu'); ?>
 
-<header class="site-header site-header--mobile" role="banner" aria-label="Mobile Site Header">
+<div class="site-header site-header--mobile" aria-label="Mobile Site Header">
   <div class="header-container">
     <div class="logo" style="<?php echo empty($mobile_menu_enabled) ? 'margin: 0 auto;' : ''; ?>">
       <a href="<?php echo esc_url($client_domain); ?>" aria-label="Homepage">
@@ -220,6 +220,6 @@ function lpmanager_is_valid_external_url($url) {
     <?php endif; ?>
 
   </div>
-</header>
+</div>
 
 <main class="main-content" id="main-content">
