@@ -117,7 +117,7 @@ if ($section_8_img_id) {
   <div class="content-image-wrapper">
     <div class="text-column">
       <h2><?php echo esc_html( $section_2_h2 ); ?></h2>
-      <p><?php echo esc_html( $section_2_text ); ?></p>
+      <?php echo wp_kses_post( wp_specialchars_decode( (string) $section_2_text, ENT_QUOTES ) ); ?>
     </div>
     <div class="image-column">
       <img src="<?php echo esc_url( $section_2_img_url ); ?>" alt="<?php echo esc_attr( $client_name_for_alt . ' ' . $keyword_name_for_alt ); ?>">
@@ -174,7 +174,7 @@ if ($section_8_img_id) {
   <div class="container">
     <h2><?php echo esc_html( $section_6_h2 ); ?></h2>
     <div class="section-text">
-      <p><?php echo esc_html( $section_6_text ); ?></p>
+      <?php echo wp_kses_post( wp_specialchars_decode( (string) $section_6_text, ENT_QUOTES ) ); ?>
     </div>
   </div>
 </section>
@@ -233,7 +233,7 @@ if ($section_8_img_id) {
   <div class="content-image-wrapper">
     <div class="text-column">
       <h2><?php echo esc_html( $section_8_h2 ); ?></h2>
-      <p><?php echo esc_html( $section_8_text ); ?></p>
+      <?php echo wp_kses_post( wp_specialchars_decode( (string) $section_8_text, ENT_QUOTES ) ); ?>
       <?php if ( ! empty( $client_tel ) ) : ?>
             <a class="call-button" style="background-color:<?php echo esc_attr( $client_primary_color ); ?>;" href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $client_phone ) ); ?>">
                 <i class="fas fa-phone-alt" aria-hidden="true"></i> Call <?php echo esc_html( $client_tel ); ?>
